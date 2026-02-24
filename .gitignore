@@ -4,3 +4,9 @@ spark-*/
 *.tgz
 *.tar.gz
 .DS_Store
+
+# Big local downloads/tools
+spark-*/
+*.tgz
+*.tar.gz
+.DS_Store
