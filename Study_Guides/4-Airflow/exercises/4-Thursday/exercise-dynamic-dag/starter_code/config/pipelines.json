@@ -1,0 +1,11 @@
+{
+  "clients": [
+    {
+      "name": "TODO_client_1",
+      "tables": ["TODO_add_tables"],
+      "schedule": "@daily",
+      "priority": "high"
+    }
+  ],
+  "_instructions": "TODO: Add configurations for at least 3 clients. Each client needs: name, tables (list), schedule, priority"
+}

@@ -1,0 +1,105 @@
+# Airflow Docker Compose Setup
+# TODO: Complete this file to set up a local Airflow environment
+
+version: '3.8'
+
+# Shared Airflow configuration
+x-airflow-common: &airflow-common
+  image: apache/airflow:2.7.3
+  environment: &airflow-common-env
+    # TODO: Set the executor type to LocalExecutor
+    AIRFLOW__CORE__EXECUTOR: # YOUR CODE HERE
+    # TODO: Configure the database connection string
+    # Format: postgresql+psycopg2://user:password@host/database
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: # YOUR CODE HERE
+    # Fernet key for encryption (provided)
+    AIRFLOW__CORE__FERNET_KEY: 'zTvhZH8vXj5lZK8bT9nxC3wR2fHgJ6mN4pQ7sU0vY1c='
+    # TODO: Disable example DAGs for cleaner UI
+    AIRFLOW__CORE__LOAD_EXAMPLES: # YOUR CODE HERE
+  volumes:
+    # TODO: Mount the dags folder
+    - ./dags:/opt/airflow/dags
+    # TODO: Mount the logs folder
+    - # YOUR CODE HERE
+    # TODO: Mount the plugins folder
+    - # YOUR CODE HERE
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  # PostgreSQL Database
+  postgres:
+    # TODO: Specify the PostgreSQL image
+    image: # YOUR CODE HERE
+    container_name: airflow-postgres
+    environment:
+      # TODO: Set PostgreSQL credentials (should match connection string above)
+      POSTGRES_USER: # YOUR CODE HERE
+      POSTGRES_PASSWORD: # YOUR CODE HERE
+      POSTGRES_DB: # YOUR CODE HERE
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Database initialization
+  airflow-init:
+    <<: *airflow-common
+    container_name: airflow-init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - |
+        airflow db init
+        airflow users create \
+          --username airflow \
+          --password airflow \
+          --firstname Admin \
+          --lastname User \
+          --role Admin \
+          --email admin@example.com || true
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Airflow Webserver
+  airflow-webserver:
+    <<: *airflow-common
+    container_name: airflow-webserver
+    # TODO: Specify the command to run the webserver
+    command: # YOUR CODE HERE
+    ports:
+      # TODO: Map port 8080 from container to host
+      - # YOUR CODE HERE
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+  # Airflow Scheduler
+  airflow-scheduler:
+    <<: *airflow-common
+    container_name: airflow-scheduler
+    # TODO: Specify the command to run the scheduler
+    command: # YOUR CODE HERE
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8974/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+
+volumes:
+  postgres-data:

@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_events
+    description: "Staged events from bronze layer - cleansed and typed"
+    
+    columns:
+      - name: event_id
+        description: "Unique identifier for each event"
+        tests:
+          - unique
+          - not_null
+      
+      - name: event_type
+        description: "Type of event - normalized to uppercase"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['CLICK', 'VIEW', 'PURCHASE', 'LOGOUT', 'LOGIN']
+              config:
+                severity: warn
+      
+      - name: user_id
+        description: "User who triggered the event"
+      
+      - name: event_timestamp
+        description: "When the event occurred"
+        tests:
+          - not_null

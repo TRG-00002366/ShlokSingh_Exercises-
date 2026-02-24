@@ -1,0 +1,44 @@
+%% Kafka Architecture Diagram
+%% Complete this diagram to show a 3-broker cluster with the "orders" topic
+%% 
+%% Requirements:
+%% - 3 Brokers (labeled with IDs)
+%% - "orders" topic with 3 partitions
+%% - Replication factor of 2 (show [L] for Leader, [F] for Follower)
+%% - 1 Producer
+%% - 2 Consumers in a consumer group
+%%
+%% Tips:
+%% - Use subgraph for grouping (brokers, consumer group)
+%% - Use different colors for leaders vs followers
+%% - Show which consumer reads which partition
+
+graph TB
+    subgraph "Kafka Cluster"
+        subgraph "Broker 1"
+            %% TODO: Add partitions for Broker 1
+            %% Example: B1P0[orders P0 - L]
+        end
+        
+        subgraph "Broker 2"
+            %% TODO: Add partitions for Broker 2
+        end
+        
+        subgraph "Broker 3"
+            %% TODO: Add partitions for Broker 3
+        end
+    end
+    
+    %% TODO: Add Producer
+    %% Example: PROD[Producer]
+    
+    subgraph "Consumer Group: order-processors"
+        %% TODO: Add Consumers
+        %% Example: C1[Consumer 1]
+    end
+    
+    %% TODO: Add connections
+    %% Producer to topic partitions
+    %% Consumers to partitions
+    
+    %% TODO: Add replication arrows between leaders and followers

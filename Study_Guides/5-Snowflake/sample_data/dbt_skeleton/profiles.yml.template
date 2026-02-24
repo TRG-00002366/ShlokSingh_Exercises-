@@ -1,0 +1,43 @@
+# ============================================================================
+# profiles.yml Template
+# ============================================================================
+# 
+# INSTRUCTIONS:
+# 1. Copy this file to ~/.dbt/profiles.yml (Linux/Mac) or 
+#    %USERPROFILE%\.dbt\profiles.yml (Windows)
+# 2. Replace all <PLACEHOLDER> values with your actual credentials
+# 3. Set the SNOWFLAKE_PASSWORD environment variable
+# 
+# DO NOT commit profiles.yml to version control (contains credentials)
+# ============================================================================
+
+snowflake_training:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      
+      # Your Snowflake account identifier
+      # Format: <account>.<region> (e.g., abc12345.us-east-1)
+      account: <YOUR_ACCOUNT_IDENTIFIER>
+      
+      # Your Snowflake username
+      user: <YOUR_USERNAME>
+      
+      # Use environment variable for password (security best practice)
+      # Set with: export SNOWFLAKE_PASSWORD="your_password" (Linux/Mac)
+      #       or: $env:SNOWFLAKE_PASSWORD="your_password" (PowerShell)
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      
+      # Database and schema for dbt to create objects
+      database: DEV_DB
+      schema: DBT_<YOUR_NAME>  # Replace with your name (e.g., DBT_JOHN)
+      
+      # Warehouse for running transformations
+      warehouse: COMPUTE_WH
+      
+      # Role (use your assigned role or ACCOUNTADMIN for training)
+      role: ACCOUNTADMIN
+      
+      # Number of parallel threads (4 is good for training)
+      threads: 4
