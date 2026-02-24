@@ -1,0 +1,6 @@
+
+# Big downloads / local tools
+spark-*/
+*.tgz
+*.tar.gz
+.DS_Store
