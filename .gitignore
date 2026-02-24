@@ -10,3 +10,9 @@ spark-*/
 *.tgz
 *.tar.gz
 .DS_Store
+
+# Spark + big binaries
+spark-*/
+*.tgz
+*.jar
+.DS_Store
