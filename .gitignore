@@ -16,3 +16,26 @@ spark-*/
 *.tgz
 *.jar
 .DS_Store
+
+# Virtual environments
+sp-env/
+venv/
+.env/
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Spark output folders
+output*/
+week*/output*/
+
+# Spark generated files
+_SUCCESS
+part-*
+*.crc
+
+# macOS junk
+.DS_Store
+._*
