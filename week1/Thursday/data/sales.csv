@@ -1,0 +1,7 @@
+sale_id,sale_date,category,price,quantity
+1,2024-01-15,Electronics,199.99,1
+2,2024-01-15,Electronics,49.99,2
+3,2024-01-15,Clothing,29.99,3
+4,2024-01-14,Clothing,59.99,1
+5,2024-01-15,Grocery,4.99,10
+6,2024-01-16,Grocery,2.49,6
